@@ -12,8 +12,8 @@ CRUD "stream" API REST HTTP
 
 ```js
 Stream.find()
-  .then((books) => {
-    res.json(books);
+  .then((streams) => {
+    res.json(streams);
   })
   .catch(next);
 ```
@@ -27,8 +27,8 @@ const data = {
 };
 
 Stream.create(data)
-  .then((book) => {
-    res.status(WHAT).json(book);
+  .then((stream) => {
+    res.status(WHAT).json(stream);
   })
   .catch(next);
 ```
@@ -36,11 +36,11 @@ Stream.create(data)
 ### detail
 
 ```js
-Stream.findById(req.params.id).then((book) => {
-  if (book) {
-    res.status(WHAT).json(book);
+Stream.findById(req.params.id).then((stream) => {
+  if (stream) {
+    res.status(WHAT).json(stream);
   } else {
-    res.status(WHAT).json({ message: "book not found" });
+    res.status(WHAT).json({ message: "stream not found" });
   }
 });
 ```
@@ -57,11 +57,11 @@ Stream.findByIdAndUpdate(req.params.id, data, {
   new: true,
   runValidators: true,
 })
-  .then((book) => {
-    if (book) {
-      res.status(WHAT).json(book);
+  .then((stream) => {
+    if (stream) {
+      res.status(WHAT).json(stream);
     } else {
-      res.status(WHAT).json({ message: "book not found" });
+      res.status(WHAT).json({ message: "stream not found" });
     }
   })
   .catch(next);
@@ -71,11 +71,11 @@ Stream.findByIdAndUpdate(req.params.id, data, {
 
 ```js
 Stream.findByIdAndDelete(req.params.id)
-  .then((book) => {
-    if (book) {
+  .then((stream) => {
+    if (stream) {
       res.status(WHAT).send();
     } else {
-      res.status(WHAT).json({ message: "book not found" });
+      res.status(WHAT).json({ message: "stream not found" });
     }
   })
   .catch(next);
