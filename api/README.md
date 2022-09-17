@@ -1,13 +1,14 @@
 CRUD "stream" API REST HTTP
 
-| http verb | path | status codes | purpose |
-| GET | /api/v1/streams | 200, | list |
-| POST | /api/v1/streams | 201, 400 | create |
-| GET | /api/v1/streams/<id> | 200, 404 | detail |
-| PATCH | /api/v1/streams/<id> | 200, 400, 404 | update |
-| DELETE | /api/v1/streams/<id> | 204, 404 | delete |
+| http verb | path                 | status codes  | purpose |
+| --------- | -------------------- | ------------- | ------- |
+| GET       | /api/v1/streams      | 200,          | list    |
+| POST      | /api/v1/streams      | 201, 400      | create  |
+| GET       | /api/v1/streams/<id> | 200, 404      | detail  |
+| PATCH     | /api/v1/streams/<id> | 200, 400, 404 | update  |
+| DELETE    | /api/v1/streams/<id> | 204, 404      | delete  |
 
-// list
+### list
 
 ```js
 Stream.find()
@@ -17,7 +18,7 @@ Stream.find()
   .catch(next);
 ```
 
-// create
+### create
 
 ```js
 const data = {
@@ -32,7 +33,7 @@ Stream.create(data)
   .catch(next);
 ```
 
-// detail
+### detail
 
 ```js
 Stream.findById(req.params.id).then((book) => {
@@ -44,7 +45,7 @@ Stream.findById(req.params.id).then((book) => {
 });
 ```
 
-// update
+### update
 
 ```js
 const data = {
@@ -66,7 +67,7 @@ Stream.findByIdAndUpdate(req.params.id, data, {
   .catch(next);
 ```
 
-// delete
+### delete
 
 ```js
 Stream.findByIdAndDelete(req.params.id)
