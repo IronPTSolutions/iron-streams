@@ -12,6 +12,12 @@ const app = express();
 app.use(express.json());
 app.use(logger("dev"));
 
+// CORS middleware
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 const routes = require("./config/routes.config");
 app.use("/api/v1", routes);
 
