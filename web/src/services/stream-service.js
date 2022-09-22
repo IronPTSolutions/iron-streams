@@ -5,7 +5,7 @@ const http = axios.create({
 });
 
 export function getStreams() {
-  // TODO
+  return http.get().then(res => res.data)
 }
 
 export function getStream(id) {
