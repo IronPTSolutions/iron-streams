@@ -11,3 +11,7 @@ export function getStreams() {
 export function getStream(id) {
   // TODO
 }
+
+export function createStream(stream) {
+  return http.post('/', stream).then(res => res.data)
+}

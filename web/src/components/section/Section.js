@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Section({ title, icon, children }) {
+function Section({ className, title, icon, children }) {
   return (
-    <section>
+    <section className={className}>
       <h1 className='m-0 fs-3 fw-light'>
         {icon && <i className={`fa fa-${icon} me-1`} />}
         {title}
@@ -14,6 +14,7 @@ function Section({ title, icon, children }) {
 }
 
 Section.defaultProps = {
+  className: '',
   icon: undefined
 }
 

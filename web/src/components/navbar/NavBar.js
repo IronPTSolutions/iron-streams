@@ -10,9 +10,14 @@ function NavBar() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="main-nav">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav me-auto">
             <li className="nav-item">
               <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Discover</NavLink>
+            </li>
+          </ul>
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink to="/create-stream" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}><i className='fa fa-plus'/></NavLink>
             </li>
           </ul>
         </div>
