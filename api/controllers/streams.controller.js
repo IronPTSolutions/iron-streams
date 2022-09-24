@@ -3,6 +3,7 @@ const createError = require("http-errors");
 
 module.exports.list = (req, res, next) => {
   Stream.find()
+    .populate('owner', 'name email')
     .then((streams) => res.json(streams))
     .catch((error) => next(error));
 };
@@ -10,6 +11,7 @@ module.exports.list = (req, res, next) => {
 module.exports.create = (req, res, next) => {
   const stream = req.body;
   delete stream.views;
+  stream.owner = req.user.id;
 
   Stream.create(stream)
     .then((stream) => res.status(201).json(stream))
@@ -18,6 +20,7 @@ module.exports.create = (req, res, next) => {
 
 module.exports.detail = (req, res, next) => {
   Stream.findById(req.params.id)
+    .populate('owner', 'name email')
     .then((stream) => {
       if (stream) {
         res.json(stream);
@@ -29,35 +32,18 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.update = (req, res, next) => {
-  const stream = req.body;
-  delete stream.views;
+  const data = req.body;
+  delete data.views;
+  delete data.owner;
 
-  Stream.findByIdAndUpdate(
-    req.params.id,
-    stream,
-    {
-      new: true,
-      runValidators: true,
-    }
-  )
-    .then((stream) => {
-      if (stream) {
-        res.json(stream);
-      } else {
-        next(createError(404, "stream not found"));
-      }
-    })
+  const stream = Object.assign(req.stream, data);
+  stream.save()
+    .then((stream) => res.json(stream))
     .catch(next);
 };
 
 module.exports.delete = (req, res, next) => {
-  Stream.findByIdAndDelete(req.params.id)
-    .then((stream) => {
-      if (stream) {
-        res.status(204).send();
-      } else {
-        next(createError(404, "stream not found"));
-      }
-    })
+  Stream.deleteOne({ _id: req.stream.id })
+    .then(() => res.status(204).send())
     .catch(next);
 };

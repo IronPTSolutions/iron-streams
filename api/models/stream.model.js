@@ -54,6 +54,11 @@ const streamSchema = new Schema(
     private: {
       type: Boolean,
       default: false
+    },
+    owner: {
+      ref: 'User',
+      type: mongoose.Schema.Types.ObjectId,
+      required: true
     }
   },
   {
