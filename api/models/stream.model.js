@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const categories = require('../data/categories');
 
 const streamSchema = new Schema(
   {
@@ -13,23 +14,20 @@ const streamSchema = new Schema(
       type: String,
       required: "Description is required",
     },
-    author: {
-      type: String,
-      required: "Author is required",
-      trim: true,
-    },
     url: {
       type: String,
       required: "Url is required",
       trim: true,
     },
-    views: {
-      type: Number,
-    },
-    category: {
-      type: String,
-      required: "Category is required",
-      trim: true,
+    views: Number,
+    categories: {
+      type: [{
+        type: String,
+        required: "Category is required",
+        enum: categories.map(category => category.value),
+        trim: true,
+      }],
+      default: []
     },
     duration: {
       type: Number,
@@ -50,7 +48,6 @@ const streamSchema = new Schema(
         delete ret.__v;
         ret.id = ret._id;
         delete ret._id;
-
         return ret;
       },
     },

@@ -8,17 +8,11 @@ module.exports.list = (req, res, next) => {
 };
 
 module.exports.create = (req, res, next) => {
-  Stream.create({
-    thumbnail: req.body.thumbnail,
-    category: req.body.category,
-    url: req.body.url,
-    author: req.body.author,
-    description: req.body.description,
-    title: req.body.title,
-  })
-    .then((stream) => {
-      res.status(201).json(stream);
-    })
+  const stream = req.body;
+  delete stream.views;
+
+  Stream.create(stream)
+    .then((stream) => res.status(201).json(stream))
     .catch(next);
 };
 
@@ -35,17 +29,12 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.update = (req, res, next) => {
+  const stream = req.body;
+  delete stream.views;
 
   Stream.findByIdAndUpdate(
     req.params.id,
-    {
-      thumbnail: req.body.thumbnail,
-      category: req.body.category,
-      url: req.body.url,
-      author: req.body.author,
-      description: req.body.description,
-      title: req.body.title,
-    },
+    stream,
     {
       new: true,
       runValidators: true,
