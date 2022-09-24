@@ -1,18 +1,19 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import * as streamsService from '../../../services/stream-service';
 import Select from 'react-select';
 import categories from '../../../data/categories';
-
+import { isURL } from '../../../utils/validations';
 
 function StreamForm() {
-  const { register, handleSubmit, setError, control, watch, formState: { errors, isValid } } = useForm({ mode: 'onTouched' });
-  console.log('categories', watch('categories'));
+  const navigation = useNavigate();
+  const { register, handleSubmit, setError, control, formState: { errors, isValid } } = useForm({ mode: 'onTouched' });
 
   const handleCreateStreamSubmit = (data) => {
     console.log(data);
     streamsService.createStream(data)
-      .then(stream => console.log('Todo bien majo', stream))
+      .then(stream => navigation('/'))
       .catch(error => {
         if (error.response?.data?.errors) {
           const { errors } = error.response.data;
@@ -47,20 +48,23 @@ function StreamForm() {
       </div>
 
       <div className="input-group mb-1">
-        <span className="input-group-text"><i className='fa fa-tag fa-fw'></i></span>
+        <span className="input-group-text"><i className='fa fa-picture-o fa-fw'></i></span>
         <input type="text" className={`form-control ${errors.thumbnail ? 'is-invalid' : ''}`} placeholder="Stream thumbnail..."
           {...register('thumbnail', {
             required: 'Thumbnail is required',
-            validate: (value) => {
-              try {
-                new URL(value);
-                return true;
-              } catch (error) {
-                return 'URL is not valid';
-              }
-            }
+            validate: (value) => isURL(value) || 'URL is not valid'
           })} />
         {errors.thumbnail && (<div className="invalid-feedback">{errors.thumbnail.message}</div>)}
+      </div>
+
+      <div className="input-group mb-1">
+        <span className="input-group-text"><i className='fa fa-tag fa-fw'></i></span>
+        <input type="text" className={`form-control ${errors.url ? 'is-invalid' : ''}`} placeholder="Stream url..."
+          {...register('url', {
+            required: 'url is required',
+            validate: (value) => isURL(value) || 'URL is not valid' 
+          })}/>
+        {errors.url && (<div className="invalid-feedback">{errors.url.message}</div>)}
       </div>
 
       <Controller 

@@ -2,6 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const categories = require('../data/categories');
 
+const isURL = (value) => {
+  try {
+    new URL(value);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 const streamSchema = new Schema(
   {
     title: {
@@ -18,6 +27,10 @@ const streamSchema = new Schema(
       type: String,
       required: "Url is required",
       trim: true,
+      validate: {
+        validator: isURL,
+        message: 'URL is not valid'
+      }
     },
     views: Number,
     categories: {
@@ -29,17 +42,19 @@ const streamSchema = new Schema(
       }],
       default: []
     },
-    duration: {
-      type: Number,
-    },
     thumbnail: {
       type: String,
       required: "Thumbnail is required",
       trim: true,
+      validate: {
+        validator: isURL,
+        message: 'URL is not valid'
+      }
     },
     private: {
       type: Boolean,
-    },
+      default: false
+    }
   },
   {
     timestamps: true,
