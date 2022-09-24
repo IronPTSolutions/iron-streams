@@ -1,137 +1,223 @@
 {
 	"info": {
-		"_postman_id": "03209244-918f-40a1-8e97-aa6cf49503f3",
+		"_postman_id": "a4c23f42-a046-4c5d-a03c-fb65b4b7524f",
 		"name": "iron-streams",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1194541"
 	},
 	"item": [
 		{
-			"name": "list streams",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/api/v1/streams",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"streams"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "create stream",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"thumbnail\": \"https://via.placeholder.com/150\",\n    \"category\": \"music\",\n    \"url\": \"https://via.placeholder.com/150\",\n    \"author\": \"julio\",\n    \"description\": \"lala lele lala lele\",\n    \"title\": \"my awesome title\",\n    \"_id\": \"heee\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Streams",
+			"item": [
+				{
+					"name": "list streams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/streams",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"streams"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/api/v1/streams",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"streams"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "stream detail",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "create stream",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"thumbnail\": \"https://via.placeholder.com/150\",\n    \"category\": \"music\",\n    \"url\": \"https://via.placeholder.com/150\",\n    \"author\": \"julio\",\n    \"description\": \"lala lele lala lele\",\n    \"title\": \"my awesome title\",\n    \"_id\": \"heee\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/streams",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"streams"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/api/v1/streams/63258bb4fa4b546cf8d34287",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"streams",
-						"63258bb4fa4b546cf8d34287"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "stream update",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\": \"title edited\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "stream detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/streams/63258bb4fa4b546cf8d34287",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"streams",
+								"63258bb4fa4b546cf8d34287"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/api/v1/streams/63258bb4fa4b546cf8d34287",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"streams",
-						"63258bb4fa4b546cf8d34287"
-					]
+				{
+					"name": "stream update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"title edited\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/streams/63258bb4fa4b546cf8d34287",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"streams",
+								"63258bb4fa4b546cf8d34287"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete stream",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/streams/63258bb4fa4b546cf8d34287",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"streams",
+								"63258bb4fa4b546cf8d34287"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "delete stream",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/api/v1/streams/63258bb4fa4b546cf8d34287",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"streams",
-						"63258bb4fa4b546cf8d34287"
-					]
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Carlos\",\n    \"email\": \"carlos1@example.org\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"carlos@example.org\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/authenticate",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"event": [
