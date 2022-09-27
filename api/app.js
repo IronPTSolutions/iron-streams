@@ -11,8 +11,8 @@ const app = express();
 
 // CORS middleware
 app.use((req, res, next) => {
-  res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Headers", "*");
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.set("Access-Control-Allow-Headers", "content-type");
   res.set("Access-Control-Allow-Methods", "*");
   res.set("Access-Control-Allow-Credentials", "true");
   next();
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(logger("dev"));
 
-const { session, loadUser } = require('./config/session.config');
+const { session, loadUser } = require("./config/session.config");
 app.use(session);
 app.use(loadUser);
 
