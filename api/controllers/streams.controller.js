@@ -3,7 +3,7 @@ const createError = require("http-errors");
 
 module.exports.list = (req, res, next) => {
   Stream.find()
-    .populate('owner', 'name email')
+    .populate("owner", "name email")
     .then((streams) => res.json(streams))
     .catch((error) => next(error));
 };
@@ -20,7 +20,8 @@ module.exports.create = (req, res, next) => {
 
 module.exports.detail = (req, res, next) => {
   Stream.findById(req.params.id)
-    .populate('owner', 'name email')
+    .populate("owner", "name email")
+    .populate("comments")
     .then((stream) => {
       if (stream) {
         res.json(stream);
@@ -37,7 +38,8 @@ module.exports.update = (req, res, next) => {
   delete data.owner;
 
   const stream = Object.assign(req.stream, data);
-  stream.save()
+  stream
+    .save()
     .then((stream) => res.json(stream))
     .catch(next);
 };

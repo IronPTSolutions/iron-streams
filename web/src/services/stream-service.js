@@ -7,10 +7,12 @@ const http = axios.create({
 
 http.interceptors.response.use(
   function (response) {
-    return response;
+    return response.data;
   },
   function (error) {
     if (error?.response?.status === 401) {
+      console.error("unauthenticated, redirect to login");
+      localStorage.clear();
       window.location.replace("/login");
     }
 
@@ -18,8 +20,12 @@ http.interceptors.response.use(
   }
 );
 
+export function getProfile() {
+  return http.get("/profile");
+}
+
 export function getStreams() {
-  return http.get("/streams").then((res) => res.data);
+  return http.get("/streams");
 }
 
 export function getStream(id) {
@@ -27,7 +33,7 @@ export function getStream(id) {
 }
 
 export function createStream(stream) {
-  return http.post("/streams", stream).then((res) => res.data);
+  return http.post("/streams", stream);
 }
 
 export function authenticate(data) {

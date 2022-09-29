@@ -1,6 +1,10 @@
 const createError = require("http-errors");
 const User = require("../models/user.model");
 
+module.exports.profile = (req, res, next) => {
+  res.json(req.user);
+};
+
 module.exports.register = (req, res, next) => {
   const { email } = req.body;
   User.findOne({ email })

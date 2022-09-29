@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const categories = require('../data/categories');
+const categories = require("../data/categories");
 
 const isURL = (value) => {
   try {
@@ -9,7 +9,7 @@ const isURL = (value) => {
   } catch (error) {
     return false;
   }
-}
+};
 
 const streamSchema = new Schema(
   {
@@ -29,18 +29,20 @@ const streamSchema = new Schema(
       trim: true,
       validate: {
         validator: isURL,
-        message: 'URL is not valid'
-      }
+        message: "URL is not valid",
+      },
     },
     views: Number,
     categories: {
-      type: [{
-        type: String,
-        required: "Category is required",
-        enum: categories.map(category => category.value),
-        trim: true,
-      }],
-      default: []
+      type: [
+        {
+          type: String,
+          required: "Category is required",
+          enum: categories.map((category) => category.value),
+          trim: true,
+        },
+      ],
+      default: [],
     },
     thumbnail: {
       type: String,
@@ -48,22 +50,23 @@ const streamSchema = new Schema(
       trim: true,
       validate: {
         validator: isURL,
-        message: 'URL is not valid'
-      }
+        message: "URL is not valid",
+      },
     },
     private: {
       type: Boolean,
-      default: false
+      default: false,
     },
     owner: {
-      ref: 'User',
+      ref: "User",
       type: mongoose.Schema.Types.ObjectId,
-      required: true
-    }
+      required: true,
+    },
   },
   {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: (doc, ret) => {
         delete ret.__v;
         ret.id = ret._id;
@@ -73,6 +76,12 @@ const streamSchema = new Schema(
     },
   }
 );
+
+streamSchema.virtual("comments", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "stream",
+});
 
 const Stream = mongoose.model("Stream", streamSchema);
 module.exports = Stream;

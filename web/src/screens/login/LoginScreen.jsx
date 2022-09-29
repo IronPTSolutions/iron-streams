@@ -18,8 +18,8 @@ function LoginScreen() {
 
   const handleLogin = (data) => {
     authenticate(data)
-      .then((response) => {
-        value.setUser(response.data);
+      .then((data) => {
+        value.setUser(data);
         navigation("/");
       })
       .catch((error) => {
