@@ -27,6 +27,8 @@ router.delete(
   streams.delete
 );
 
+router.post("/streams/:id/like", secure.isAuthenticated, streams.like);
+
 router.post("/streams/:id/comments", secure.isAuthenticated, comments.create);
 router.patch(
   "/streams/:id/comments/:commentId",

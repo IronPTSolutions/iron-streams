@@ -1,4 +1,5 @@
 const Stream = require("../models/stream.model");
+const Like = require("../models/like.model");
 const createError = require("http-errors");
 
 module.exports.list = (req, res, next) => {
@@ -22,6 +23,7 @@ module.exports.detail = (req, res, next) => {
   Stream.findById(req.params.id)
     .populate("owner", "name email")
     .populate("comments")
+    .populate("likes")
     .then((stream) => {
       if (stream) {
         res.json(stream);
@@ -47,5 +49,24 @@ module.exports.update = (req, res, next) => {
 module.exports.delete = (req, res, next) => {
   Stream.deleteOne({ _id: req.stream.id })
     .then(() => res.status(204).send())
+    .catch(next);
+};
+
+module.exports.like = (req, res, next) => {
+  const detail = {
+    user: req.user.id,
+    stream: req.params.id,
+  };
+
+  Like.findOne(detail)
+    .then((like) => {
+      if (like) {
+        return Like.deleteOne(detail);
+      } else {
+        return Like.create(detail);
+      }
+    })
+    .then(() => Like.count(detail))
+    .then((likes) => res.json({ likes }))
     .catch(next);
 };

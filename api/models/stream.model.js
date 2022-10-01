@@ -83,5 +83,12 @@ streamSchema.virtual("comments", {
   foreignField: "stream",
 });
 
+streamSchema.virtual("likes", {
+  ref: "Like",
+  localField: "_id",
+  foreignField: "stream",
+  count: true,
+});
+
 const Stream = mongoose.model("Stream", streamSchema);
 module.exports = Stream;

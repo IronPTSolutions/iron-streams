@@ -1,4 +1,5 @@
 const Stream = require("../models/stream.model");
+const Comment = require("../models/comment.model");
 const createError = require("http-errors");
 
 module.exports.isOwnedByUser = (req, res, next) => {
@@ -23,7 +24,7 @@ module.exports.isCommentOwnedByUser = (req, res, next) => {
   Comment.findById(commentId)
     .then((comment) => {
       if (comment) {
-        if (comment.user === req.user.id) {
+        if (comment.user == req.user.id) {
           req.comment = comment;
           next();
         } else {

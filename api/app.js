@@ -48,5 +48,12 @@ app.use((error, req, res, next) => {
   res.json(data);
 });
 
-const port = process.env.PORT || 3001;
-app.listen(port, () => console.log(`iron streams api running at port ${port}`));
+if (process.env.NODE_ENV !== "test") {
+  const port = process.env.PORT || 3001;
+
+  app.listen(port, () =>
+    console.log(`iron streams api running at port ${port}`)
+  );
+}
+
+module.exports = app;

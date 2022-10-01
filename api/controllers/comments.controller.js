@@ -14,7 +14,7 @@ module.exports.create = (req, res, next) => {
 module.exports.update = (req, res, next) => {
   req.comment.text = req.body.text;
 
-  comment
+  req.comment
     .save()
     .then((comment) => res.json(comment))
     .catch(next);
