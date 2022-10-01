@@ -29,11 +29,19 @@ export function getStreams() {
 }
 
 export function getStream(id) {
-  // TODO
+  return http.get(`/streams/${id}`);
 }
 
 export function createStream(stream) {
   return http.post("/streams", stream);
+}
+
+export function likeStream(id) {
+  return http.post(`/streams/${id}/like`);
+}
+
+export function commentStream(id, text) {
+  return http.post(`/streams/${id}/comments`, { text });
 }
 
 export function authenticate(data) {

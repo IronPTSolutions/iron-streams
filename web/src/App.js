@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { DiscoverScreen, CreateStreamScreen, LoginScreen } from "./screens";
 import { useContext } from "react";
 import { AuthContext } from "./contexts/AuthContext";
+import DetailScreen from "./screens/detail/DetailScreen";
 
 function AuthGuard({ children }) {
   const { user } = useContext(AuthContext);
@@ -35,6 +36,14 @@ function App() {
             element={
               <AuthGuard>
                 <CreateStreamScreen />
+              </AuthGuard>
+            }
+          />
+          <Route
+            path="/:id"
+            element={
+              <AuthGuard>
+                <DetailScreen />
               </AuthGuard>
             }
           />

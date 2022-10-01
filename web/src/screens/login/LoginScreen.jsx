@@ -74,6 +74,14 @@ function LoginScreen() {
           <button className="btn btn-primary" type="submit" disabled={!isValid}>
             Login
           </button>
+
+          <a
+            className="btn btn-danger mt-2"
+            href="http://localhost:3001/api/v1/authenticate/slack"
+          >
+            <i className="fa fa-slack me-2"></i>
+            Login with Slack
+          </a>
         </div>
       </form>
     </div>

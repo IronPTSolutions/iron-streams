@@ -4,6 +4,7 @@ const createError = require("http-errors");
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const passport = require("passport");
 
 require("./config/db.config");
 
@@ -25,15 +26,18 @@ const { session, loadUser } = require("./config/session.config");
 app.use(session);
 app.use(loadUser);
 
+require("./config/passport.config");
+app.use(passport.initialize());
+
 const routes = require("./config/routes.config");
 app.use("/api/v1", routes);
 
 app.use((req, res, next) => next(createError(404, "Route not found")));
 
 app.use((error, req, res, next) => {
-  res.status(error.status || 500);
-
   const data = {};
+
+  console.error(error);
 
   if (error instanceof mongoose.Error.ValidationError || error.status === 400) {
     error.status = 400;
@@ -44,8 +48,8 @@ app.use((error, req, res, next) => {
 
   data.message = error.message;
 
-  res.status(error.status);
-  res.json(data);
+  res.status(error.status || 500);
+  res.send(data);
 });
 
 if (process.env.NODE_ENV !== "test") {

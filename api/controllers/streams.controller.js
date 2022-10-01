@@ -22,7 +22,12 @@ module.exports.create = (req, res, next) => {
 module.exports.detail = (req, res, next) => {
   Stream.findById(req.params.id)
     .populate("owner", "name email")
-    .populate("comments")
+    .populate({
+      path: "comments",
+      populate: {
+        path: "user",
+      },
+    })
     .populate("likes")
     .then((stream) => {
       if (stream) {

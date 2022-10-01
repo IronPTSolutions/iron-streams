@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const streams = require("../controllers/streams.controller");
 const comments = require("../controllers/comments.controller");
+const passport = require("passport");
 const auth = require("../controllers/auth.controller");
 const secure = require("../middlewares/secure.mid");
 const streamsMid = require("../middlewares/streams.mid");
@@ -9,6 +10,8 @@ const streamsMid = require("../middlewares/streams.mid");
 router.post("/register", auth.register);
 router.get("/profile", secure.isAuthenticated, auth.profile);
 router.post("/authenticate", auth.authenticate);
+router.get("/authenticate/slack", passport.authorize("Slack"));
+router.get("/authenticate/slack/cb", passport.authorize("Slack"), auth.slack);
 router.delete("/logout", auth.logout);
 
 router.get("/streams", secure.isAuthenticated, streams.list);

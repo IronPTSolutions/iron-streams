@@ -1,19 +1,25 @@
-const { createContext, useState } = require("react");
+import { createContext, useState, useEffect } from "react";
+import { getProfile } from "../services/stream-service";
 
 export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [user, setUser] = useState(undefined); // undefined means loading
 
-  function login(user) {
-    setUser(user);
-    localStorage.setItem("user", JSON.stringify(user));
-  }
+  useEffect(() => {
+    getProfile()
+      .then((user) => setUser(user))
+      .catch((user) => setUser(null));
+  }, []);
 
   const value = {
     user,
-    setUser: login,
+    setUser,
   };
+
+  if (user === undefined) {
+    return <></>;
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
