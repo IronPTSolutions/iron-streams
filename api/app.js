@@ -19,6 +19,9 @@ app.use((req, res, next) => {
   next();
 });
 
+/** React app */
+app.use(express.static(`${__dirname}/react-app`));
+
 app.use(express.json());
 app.use(logger("dev"));
 
@@ -32,7 +35,11 @@ app.use(passport.initialize());
 const routes = require("./config/routes.config");
 app.use("/api/v1", routes);
 
-app.use((req, res, next) => next(createError(404, "Route not found")));
+
+app.get('/*', (req, res) => {
+  res.sendFile(`${__dirname}/react-app/index.html`);
+})
+
 
 app.use((error, req, res, next) => {
   const data = {};

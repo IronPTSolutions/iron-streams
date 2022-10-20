@@ -46,4 +46,6 @@ router.delete(
   comments.delete
 );
 
+router.use((req, res, next) => next(createError(404, "Route not found")));
+
 module.exports = router;

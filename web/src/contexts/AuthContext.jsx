@@ -7,14 +7,24 @@ function AuthContextProvider({ children }) {
   const [user, setUser] = useState(undefined); // undefined means loading
 
   useEffect(() => {
-    getProfile()
-      .then((user) => setUser(user))
-      .catch((user) => setUser(null));
+    const isLoaded = localStorage.getItem('user-loaded') === 'true';
+    if (isLoaded) {
+      getProfile()
+        .then((user) => setUser(user))
+        .catch((user) => setUser(null));
+    } else {
+      setUser(null)
+    }
   }, []);
+
+  const updateUser = (user) => {
+    localStorage.setItem('user-loaded', 'true');
+    setUser(user);
+  }
 
   const value = {
     user,
-    setUser,
+    setUser: updateUser,
   };
 
   if (user === undefined) {
